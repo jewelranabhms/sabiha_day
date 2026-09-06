@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Sabiha's Day",
+    "slug": "sabihas-day",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "sabihasday",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FDFAF5"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sabiha.day",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "ভয়েস ডায়েরি রেকর্ড করতে মাইক্রোফোন প্রয়োজন।",
+        "NSPhotoLibraryUsageDescription": "আপনার ব্যক্তিগত স্মৃতি সংরক্ষণ করতে ছবি প্রয়োজন।"
+      }
+    },
+    "android": {
+      "package": "com.sabiha.day",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FDFAF5"
+      },
+      "permissions": ["RECORD_AUDIO", "READ_MEDIA_IMAGES", "POST_NOTIFICATIONS"]
+    },
+    "web": { "bundler": "metro" },
+    "plugins": [
+      ["expo-av", { "microphonePermission": "ভয়েস ডায়েরি রেকর্ড করতে মাইক্রোফোন প্রয়োজন।" }],
+      ["expo-notifications", { "color": "#5E8A6D" }]
+    ],
+    "extra": {
+      "eas": { "projectId": "" }
+    }
+  }
+}
