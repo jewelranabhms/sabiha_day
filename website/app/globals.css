@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SABIHA'S JOURNEY — global styles
+   Warm, quiet, dignified. Lots of whitespace. Nothing loud.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    --paper: #fdfaf5;
+    /* self-hosted (see app/layout.tsx) */
+    --font-inter: 'Inter Variable', 'Inter';
+    --font-hind: 'Hind Siliguri';
+    color-scheme: light;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink antialiased;
+    font-feature-settings: 'kern', 'liga';
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-sage-200 text-sage-900;
+  }
+
+  /* A calmer scrollbar — the site should never feel clinical. */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: #e0d6c6;
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background-color: #cfc2ae; }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-sage-500;
+  }
+}
+
+@layer components {
+  .bn { @apply font-bn; }
+
+  .field {
+    @apply w-full rounded-2xl border border-line bg-white px-4 py-3 font-bn text-ink
+           placeholder:text-faint transition-colors
+           focus:border-sage-400 focus:outline-none focus:ring-4 focus:ring-sage-100;
+  }
+
+  .field-area {
+    @apply field resize-y leading-relaxed;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white
+           px-3 py-1.5 font-bn text-xs font-medium text-muted transition-all
+           hover:border-sage-300 hover:text-sage-700;
+  }
+
+  .chip-active {
+    @apply border-sage-400 bg-sage-50 text-sage-700;
+  }
+
+  .quote {
+    @apply font-bn text-lg leading-relaxed text-ink sm:text-xl;
+  }
+
+  .app-shell {
+    @apply mx-auto flex min-h-dvh w-full max-w-md flex-col bg-paper;
+  }
+
+  .app-card {
+    @apply rounded-3xl border border-line/80 bg-white p-5 shadow-soft;
+  }
+
+  .app-title {
+    @apply font-bn text-base font-semibold text-ink;
+  }
+
+  .app-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-600 px-5 py-3
+           font-bn text-sm font-medium text-white transition-all active:scale-[0.98]
+           disabled:opacity-50;
+  }
+
+  .app-btn-soft {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-line
+           bg-white px-5 py-3 font-bn text-sm font-medium text-ink transition-all
+           hover:bg-sage-50 active:scale-[0.98];
+  }
+}
+
+@layer utilities {
+  /* Very subtle paper texture — warmth without noise. */
+  .bg-grain {
+    background-image: radial-gradient(rgba(120, 105, 85, 0.045) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
+
+/* ── Print: "Create My Journey Book" ─────────────────────────────────────
+   The Journey Book is typeset for A4 printing. Ctrl/Cmd-P → Save as PDF
+   produces the volume; no heavy PDF dependency, and Bangla shaping is
+   handled by the browser rather than a PDF library.                        */
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 16mm;
+  }
+
+  body { background: #fff !important; }
+
+  .no-print { display: none !important; }
+
+  .print-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .print-chapter {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .print-shadow { box-shadow: none !important; }
+
+  /* Flatten the phone chrome and any nested scroll area so the whole
+     document is printable — otherwise the browser clips inside
+     `overflow: auto` containers. */
+  html, body { height: auto !important; overflow: visible !important; }
+
+  [data-print-flatten],
+  [data-print-flatten] * {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  [data-print-flatten] {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
