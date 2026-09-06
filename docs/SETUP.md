@@ -221,7 +221,7 @@ npx expo start          # scan the QR with the Expo Go app
 
 | # | Task | Where |
 |---|---|---|
-| 1 | Replace the placeholder portrait with her real photo | `website/public/sabiha.jpg` |
+| 1 | Replace the placeholder portrait with her real photo | `./scripts/set-photo.sh photo.jpg` — or upload `website/public/sabiha.jpg` straight on GitHub (see below) |
 | 2 | Enter the real bKash / Nagad / Rocket numbers | `website/lib/site.ts` → `donation.channels` |
 | 3 | Set the real fund target | Admin → Donations → *Fund target* |
 | 4 | Fill in her batch and college | Admin → Settings → Public profile |
@@ -238,6 +238,7 @@ npx expo start          # scan the QR with the Expo Go app
 
 | Symptom | Cause |
 |---|---|
+| Her photo won't arrive through chat attachment | Some environments deliver images to the agent as view-only content, never as a file. Three routes that always work: **(a)** upload it on GitHub — repository → branch `arena/01a075a7-sabiha-day` → `website/public/` → *Add file → Upload files*, name it `sabiha.jpg`, commit; **(b)** on whoever's machine has the repo: `./scripts/set-photo.sh photo.jpg`, commit, push; **(c)** swap the file on the deployment machine before/after deploying. The site only ever reads that one path. |
 | Private screens empty after switching to Supabase | `app_users.auth_id` not linked to `auth.users` — see 1.4 |
 | `DATA_SOURCE=supabase but Supabase env vars are missing` | `.env` not loaded; check it is in the **repo root** *and* in Vercel |
 | Message submitted but nothing appears | That's correct — it's `pending`. Admin → Messages → Approve |

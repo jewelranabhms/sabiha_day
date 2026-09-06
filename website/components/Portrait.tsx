@@ -45,6 +45,9 @@ export function Portrait({
           src={src}
           alt={alt}
           className="h-full w-full object-cover"
+          /* portrait photos keep the face in the upper third — anchor the
+             circular crop there, not at the geometric centre */
+          style={{ objectPosition: '50% 30%' }}
           onError={(e) => {
             const img = e.currentTarget;
             img.style.display = 'none';
